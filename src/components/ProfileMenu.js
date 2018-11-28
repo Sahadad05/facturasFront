@@ -3,14 +3,19 @@ import axios from 'axios';
 // import { Field, reduxForm } from 'redux-form'
 
 class ProfileMenu extends Component {
-  
+
+  // periodo = React.createRef()
+
   state={
     info:{
       mes:'',
       tipo:'',
-      rfc:''
+      rfc:'',
+      frecuencia:''
     }
   }
+
+  // const frecuencia = this.periodo.current.checked ? 'una vez' : 'mensual'
 
     componentDidMount() {
       axios.post('http://localhost:3000/', this.state.info)
@@ -40,17 +45,24 @@ class ProfileMenu extends Component {
     this.setState({info})
   }
 
+
   render() { 
     // let ProfileMenu = props => {
     //   const { handleSubmit } = props
+
+
+    var elementos = document.getElementsByName("frecuencia")
+    for (var i=0; i<elementos.length; i++)
+
+    
 
     return (
       <div>
       <form title='Solicita tu factura' onSubmit={this.onSubmit}>
         <h1>Solicita tu factura</h1>
-        {/* <label>RFC</label>         */}
+        <label>RFC</label>        
 
-        {/* {this.state.info.RFC.length!==0?
+        {/* {this.state.info.RFC.length!==0?}
         <div>
         <input
         value={this.state.info.RFC}
@@ -65,6 +77,7 @@ class ProfileMenu extends Component {
         type= 'text'
         placeholder= 'RFC'
         name='rfc'
+        id= 'rfc'
         onChange={this.onChange}
         />  
         <button>Registrar</button>
@@ -94,14 +107,26 @@ class ProfileMenu extends Component {
         <option>Noviembre</option>
         <option>Diciembre</option>
         </select>
+          <br/>
 
-        <button>Solicitar</button>
+        <div name='frecuencia' onChange={this.onChange}>
+          <label>Frecuencia:</label>
+            <input type="radio" name="frecuencia" value="una vez" id='frecuencia_unavez'/> Una vez
+            <input type="radio" name="frecuencia" value="mensual" id='frecuencia_mensual'/> Mensual
+          
+          
+          </div>
+
+
+        <button type='submit'>Solicitar</button>
 
 
       </form>
 
 
+
       </div>
+    
 
     );
   }

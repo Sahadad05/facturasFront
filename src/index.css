@@ -12,3 +12,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.contenedor {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contenedor-formulario {
+  background-color: white;
+  padding: 3rem;
+}

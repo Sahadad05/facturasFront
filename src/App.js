@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProfileMenu from './components/Profile/ProfileDashboard/ProfileMenu'
+import ProfileMenu from './components/ProfileMenu'
 
 class App extends Component {
   render() {
