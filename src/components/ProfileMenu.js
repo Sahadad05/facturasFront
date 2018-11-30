@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form'
+// import { connect } from 'react-redux';
 
-class ProfileMenu extends Component {
 
-  // periodo = React.createRef()
 
+export class ProfileMenu extends Component {
+  
   state={
     info:{
       mes:'',
@@ -14,6 +15,7 @@ class ProfileMenu extends Component {
       frecuencia:''
     }
   }
+
 
   // const frecuencia = this.periodo.current.checked ? 'una vez' : 'mensual'
 
@@ -26,8 +28,8 @@ class ProfileMenu extends Component {
         .catch(err => console.log(err))
     }
 
-  onSubmit=(event) =>{
-    event.preventDefault()
+  handleSubmit=(e) =>{
+    e.preventDefault()
     axios.post('http://localhost:3000/', this.state.info)
         .then(res=>{
           console.log(res)
@@ -47,52 +49,59 @@ class ProfileMenu extends Component {
 
 
   render() { 
-    // let ProfileMenu = props => {
-    //   const { handleSubmit } = props
-
-
-    var elementos = document.getElementsByName("frecuencia")
-    for (var i=0; i<elementos.length; i++)
-
+    // var elementos = document.getElementsByName("frecuencia")
+    // for (var i=0; i<elementos.length; i++)
     
+    
+    // const ProfileMenu = props => {
+     const { handleSubmit } = this.props
 
     return (
+    
       <div>
-      <form title='Solicita tu factura' onSubmit={this.onSubmit}>
-        <h1>Solicita tu factura</h1>
-        <label>RFC</label>        
+      <form title='Solicita tu factura' onSubmit={handleSubmit}>
+      <h1>Solicita tu factura</h1>
+      <div>
+        <label>RFC</label>     
+        <div>   
+        <Field
+        type= 'text'
+        placeholder= '*RFC'
+        name='rfc'
+        value= 'rfc'
+        onChange={this.onChange}
+        component="input"
+        />  
+        <button type='submit'>Registrar</button>
 
-        {/* {this.state.info.RFC.length!==0?}
+
+         {/* {this.state.info.RFC.length!==0?}
         <div>
         <input
-        value={this.state.info.RFC}
+        value={this.state.info.rfc}
         disabled
         />
         <button>Editar</button> 
         </div> 
         : */}
-        
-        <div>
-        <input
-        type= 'text'
-        placeholder= 'RFC'
-        name='rfc'
-        id= 'rfc'
-        onChange={this.onChange}
-        />  
-        <button>Registrar</button>
+
+
         </div>
-        <br/>
+        </div>
+
+        {/* <br/> */}
         
         <br/>
-        <select name='tipo' id='hola' onChange={this.onChange}>
+        <div>
+        <Field name='tipo' component='select' id='hola' onChange={this.onChange}>
         <option disabled selected>Tipo</option>
         <option>Comisiones</option>
         <option>Transacciones</option>
+        </Field>
+        {/* </div>
 
-        </select>
-
-        <select name='mes' onChange={this.onChange}>
+        <div> */}
+          <Field name='mes' component='select' onChange={this.onChange}>
         <option disabled selected> Mes</option>
         <option>Enero</option>
         <option>Febrero</option>
@@ -106,30 +115,47 @@ class ProfileMenu extends Component {
         <option>Octubre</option>
         <option>Noviembre</option>
         <option>Diciembre</option>
-        </select>
-          <br/>
-
-        <div name='frecuencia' onChange={this.onChange}>
-          <label>Frecuencia:</label>
-            <input type="radio" name="frecuencia" value="una vez" id='frecuencia_unavez'/> Una vez
-            <input type="radio" name="frecuencia" value="mensual" id='frecuencia_mensual'/> Mensual
-          
-          
+        </Field>
+        </div>
+<br/>
+        <div>
+        <label>Frecuencia:         </label>
+        <label>
+        <Field
+          name='frecuencia' 
+          onChange={this.onChange}
+          component="input"
+          type= 'radio'
+          value='una vez'
+          />{''}
+          Una vez
+          </label>
+          <label>
+          <Field
+          name='frecuencia' 
+          onChange={this.onChange}
+          component="input"
+          type= 'radio'
+          value='mensual'
+          />{''}
+          Mensual
+          </label>
           </div>
-
-
-        <button type='submit'>Solicitar</button>
-
-
+          <br/>
+        <button type='submit' >Solicitar</button>
       </form>
-
-
-
       </div>
-    
-
-    );
-  }
+     )}
 }
+  
+ ProfileMenu = reduxForm({
+   form:'simple'
+ }) (ProfileMenu)
 
-export default ProfileMenu
+ export default ProfileMenu
+
+// export default reduxForm ({
+//   form: 'simple'
+// })(ProfileMenu)
+
+
