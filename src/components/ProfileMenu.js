@@ -1,161 +1,132 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Field, reduxForm } from 'redux-form'
-// import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import Button from '@clipmx/clip-ui/Button';
+import { Input } from '@clipmx/input';
+import { Form } from 'antd';
+import Card from '@clipmx/card';
 
 
+const FormItem = Form.Item;
 
-export class ProfileMenu extends Component {
-  
-  state={
-    info:{
-      mes:'',
-      tipo:'',
-      rfc:'',
-      frecuencia:''
-    }
-  }
-
+class ProfileMenu extends Component {
+  state = {
+    info: {
+      mes: '',
+      tipo: '',
+      rfc: '',
+      frecuencia: '',
+    },
+  };
 
   // const frecuencia = this.periodo.current.checked ? 'una vez' : 'mensual'
 
-    componentDidMount() {
-      axios.post('http://localhost:3000/', this.state.info)
-        .then(res=>{
-          console.log(res)
-
-        })
-        .catch(err => console.log(err))
-    }
-
-  handleSubmit=(e) =>{
-    e.preventDefault()
-    axios.post('http://localhost:3000/', this.state.info)
-        .then(res=>{
-          console.log(res)
-
-        })
-        .catch(err => console.log(err))
-  }
-  
-  onChange=(e) =>{
-    const valor = e.target.value
-    const key = e.target.name
-    const info =this.state.info
-    info[key]=valor
-    console.log(info)
-    this.setState({info})
+  componentDidMount() {
+    axios
+      .post('http://localhost:3000/', this.state.info)
+      .then(res => {
+        console.log(res, this.props);
+      })
+      .catch(err => console.log(err));
   }
 
+  submitForm = (values) => {
+    console.log(values);
+    //e.preventDefault();
+    // axios
+    //   .post('http://localhost:3000/', this.state.info)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => console.log(err));
+  };
 
-  render() { 
+  render() {
     // var elementos = document.getElementsByName("frecuencia")
     // for (var i=0; i<elementos.length; i++)
-    
-    
+
     // const ProfileMenu = props => {
-     const { handleSubmit } = this.props
+    const { handleSubmit } = this.props;
 
     return (
-    
+      
       <div>
-      <form title='Solicita tu factura' onSubmit={handleSubmit}>
-      <h1>Solicita tu factura</h1>
-      <div>
-        <label>RFC</label>     
-        <div>   
-        <Field
-        type= 'text'
-        placeholder= '*RFC'
-        name='rfc'
-        value= 'rfc'
-        onChange={this.onChange}
-        component="input"
-        />  
-        <button type='submit'>Registrar</button>
+        <Card>
 
+        <form title="Solicita tu factura" onSubmit={handleSubmit(this.submitForm)}>
+          
+          <div>
+            <Field
+              name="tipo"
+              component="select"
+            >
+              <option value=''>
+                Tipo
+              </option>
+              <option value='comisiones'>Comisiones</option>
+              <option value='transacciones'>Transacciones</option>
+            </Field>
 
-         {/* {this.state.info.RFC.length!==0?}
-        <div>
-        <input
-        value={this.state.info.rfc}
-        disabled
-        />
-        <button>Editar</button> 
-        </div> 
-        : */}
-
-
-        </div>
-        </div>
-
-        {/* <br/> */}
-        
-        <br/>
-        <div>
-        <Field name='tipo' component='select' id='hola' onChange={this.onChange}>
-        <option disabled selected>Tipo</option>
-        <option>Comisiones</option>
-        <option>Transacciones</option>
-        </Field>
-        {/* </div>
-
-        <div> */}
-          <Field name='mes' component='select' onChange={this.onChange}>
-        <option disabled selected> Mes</option>
-        <option>Enero</option>
-        <option>Febrero</option>
-        <option>Marzo</option>
-        <option>Abril</option>
-        <option>Mayo</option>
-        <option>Junio</option>
-        <option>Julio</option>
-        <option>Agosto</option>
-        <option>Septiembre</option>
-        <option>Octubre</option>
-        <option>Noviembre</option>
-        <option>Diciembre</option>
-        </Field>
-        </div>
-<br/>
-        <div>
-        <label>Frecuencia:         </label>
-        <label>
-        <Field
-          name='frecuencia' 
-          onChange={this.onChange}
-          component="input"
-          type= 'radio'
-          value='una vez'
-          />{''}
-          Una vez
-          </label>
-          <label>
-          <Field
-          name='frecuencia' 
-          onChange={this.onChange}
-          component="input"
-          type= 'radio'
-          value='mensual'
-          />{''}
-          Mensual
-          </label>
+            <Field
+              name="mes"
+              component="select"
+            >
+              <option value="mes" disabled>Mes</option>
+              <option value="enero">Enero</option>
+              <option value="febrero">Febrero</option>
+              <option value="marzo">Marzo</option>
+              <option value="abril">Abril</option>
+              <option value="mayo">Mayo</option>
+              <option value="junio">Junio</option>
+              <option value="julio">Julio</option>
+              <option value="agosto">Agosto</option>
+              <option value="septiembre">Septiembre</option>
+              <option value="octubre">Octubre</option>
+              <option value="noviembre">Noviembre</option>
+              <option value="diciembre">Diciembre</option>
+            </Field>
           </div>
-          <br/>
-        <button type='submit' >Solicitar</button>
-      </form>
-      </div>
-     )}
-}
-  
- ProfileMenu = reduxForm({
-   form:'simple'
- }) (ProfileMenu)
+          <br />
+          <div>
+            <label>Frecuencia: </label>
+            <label>
+              <Field
+                name="frecuencia"
+                component="input"
+                type="radio"
+                value='una vez'
+              />
+              {''}
+              Una vez
+            </label>
+            <label>
+              <Field
+                name="frecuencia"
+                component="input"
+                type="radio"
+                value='mensual'
 
- export default ProfileMenu
+              />
+              {''}
+              Mensual
+            </label>
+          </div>
+          <br />
+          <Button type="submit">Solicitar</Button>
+        </form>
+        </Card>
+      </div>
+    );
+  }
+}
+
+export default connect(null)(
+  reduxForm({
+    form: 'simple',
+  })(ProfileMenu)
+);;
 
 // export default reduxForm ({
 //   form: 'simple'
 // })(ProfileMenu)
-
-
