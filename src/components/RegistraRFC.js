@@ -3,9 +3,11 @@ import axios from 'axios';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import Button from '@clipmx/clip-ui/Button';
-import Input from '@clipmx/input';
 import { Form } from 'antd';
 import Card from '@clipmx/card';
+import uuid from 'uuid'
+import Registro from './Registro'
+import '../components/Registro.scss'
 
 
 const FormItem = Form.Item;
@@ -13,10 +15,8 @@ const FormItem = Form.Item;
 class RegistraRFC extends Component {
   state = {
     info: {
-      mes: '',
-      tipo: '',
+      id : uuid (),
       rfc: '',
-      frecuencia: '',
     },
   };
 
@@ -34,6 +34,7 @@ class RegistraRFC extends Component {
   submitForm = (values) => {
     console.log(values);
   };
+  
 
   render() {
     // var elementos = document.getElementsByName("frecuencia")
@@ -43,30 +44,35 @@ class RegistraRFC extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div>
-        <Card>
+      <div className='body'>
+        <Card className='card'>
         <form title="Registra RFC" onSubmit={handleSubmit(this.submitForm)}>
           <h1>Solicita tu factura</h1>
           <div>
             <label>RFC</label>
             <div>
-              <Field
+              <Field 
+              className='input'
                 type="text"
                 placeholder="*RFC"
                 name="rfc"
                 component='input'
               />
-              <Button type="submit">Registrar</Button>
+              <Button className='btn' type="submit">Registrar</Button>
 
-              {/* {this.state.info.RFC.length!==0?}
+              <Registro />
+
+              {/* {this.state.info.RFC.length !== 0 ?}
               <div>
               <input
               value={this.state.info.rfc}
               disabled
               />
+
               <button>Editar</button> 
-              </div> 
-              : */}
+
+              </div> */}
+
             </div>
             </div>
            
