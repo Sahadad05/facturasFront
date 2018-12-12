@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '@clipmx/clip-ui/Button';
+// import Button from '@clipmx/clip-ui/Button';
 import { connect } from 'react-redux';
 import '../components/Registro.scss'
 
@@ -12,14 +12,14 @@ class Registro extends Component {
   }
   
   render() {
-    const  { rfc }  = this.props.registro;
+    // const  { rfc }  = this.props.registro;
 
       return (
         <div>
-            <h3>RFC: {rfc}</h3>
-            <Button className='button' onClick= {this.editarRfc}>
+            <h3>RFC: {}</h3>
+            <button className='btn2' onClick= {this.editarRfc}>
               Editar
-            </Button>
+            </button>
         </div>
       );
     }

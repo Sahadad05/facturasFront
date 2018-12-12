@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import Button from '@clipmx/clip-ui/Button';
+// import Button from '@clipmx/clip-ui/Button';
 import { Form } from 'antd';
 import Card from '@clipmx/card';
 import uuid from 'uuid'
@@ -47,7 +47,9 @@ class RegistraRFC extends Component {
       <div className='body'>
         <Card className='card'>
         <form title="Registra RFC" onSubmit={handleSubmit(this.submitForm)}>
+          <div>
           <h1>Solicita tu factura</h1>
+          </div>
           <div>
             <label>RFC</label>
             <div>
@@ -58,9 +60,11 @@ class RegistraRFC extends Component {
                 name="rfc"
                 component='input'
               />
-              <Button className='btn' type="submit">Registrar</Button>
+              <br/>
+              <br/>
 
-              <Registro />
+              <button className='btn' type="submit">Registrar</button>
+
 
               {/* {this.state.info.RFC.length !== 0 ?}
               <div>

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import Button from '@clipmx/clip-ui/Button';
+// import Button from '@clipmx/clip-ui/Button';
 import { Form } from 'antd';
 import Card from '@clipmx/card';
 import uuid from 'uuid'
 import '../components/Registro.scss'
+import Registro from './Registro'
 
 
 const FormItem = Form.Item;
@@ -54,8 +55,11 @@ class ProfileMenu extends Component {
       <div className='body'>
         <Card className='card2'>
         <form title="Solicita tu factura" onSubmit={handleSubmit(this.submitForm)}>
-          
           <div>
+          <Registro />
+          <br/>
+          <br/>
+          <br/>
             <Field
               name="tipo"
               component="select"
@@ -112,7 +116,7 @@ class ProfileMenu extends Component {
             </label>
           </div>
           <br />
-          <Button type="submit">Solicitar</Button>
+          <button className='btn2' type="submit">Solicitar</button>
         </form>
         </Card>
         </div>
