@@ -6,8 +6,10 @@ import { connect } from 'react-redux';
 import { Form } from 'antd';
 import Card from '@clipmx/card';
 import uuid from 'uuid'
-import Registro from './Registro'
+// import Registro from './Registro'
 import '../components/Registro.scss'
+
+import {addRfc, editRfc} from '../redux/Actions/actions'
 
 
 const FormItem = Form.Item;
@@ -33,6 +35,7 @@ class RegistraRFC extends Component {
 
   submitForm = (values) => {
     console.log(values);
+    this.props.addRfc(values);
   };
   
 
@@ -87,7 +90,7 @@ class RegistraRFC extends Component {
   }
 }
 
-export default connect(null)(
+export default connect(null, {addRfc})(
   reduxForm({
     form: 'registra rfc',
   })(RegistraRFC)

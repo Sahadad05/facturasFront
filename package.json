@@ -16,7 +16,8 @@
     "redux": "^4.0.1",
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0",
-    "styled": "^1.0.0"
+    "styled": "^1.0.0",
+    "sweetalert2": "^7.32.2"
   },
   "scripts": {
     "start": "PORT=4200 react-scripts start",
