@@ -21,9 +21,8 @@ export default (state = initialState, action) => {
     switch(action.type){
         case ADD_RFC:
         return{
-           ...state.info.push(action.rfc),
-            
-            info:state.info.push(action.rfc)    
+           ...state,
+            info: action.rfc
         }
         case EDIT_RFC:
         return{
@@ -37,7 +36,10 @@ export default (state = initialState, action) => {
             ...state,
             info:action.info
         }
+        
     default:
+    console.log(state)
+
     return state
     }
 }

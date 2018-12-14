@@ -10,16 +10,15 @@ import uuid from 'uuid'
 import '../components/Registro.scss'
 
 import {addRfc, editRfc} from '../redux/Actions/actions'
+import swal from 'sweetalert2'
 
 
 const FormItem = Form.Item;
 
 class RegistraRFC extends Component {
   state = {
-    info: {
-      id : uuid (),
-      rfc: '',
-    },
+    rfc: '',
+    id: uuid (),
   };
 
   // const frecuencia = this.periodo.current.checked ? 'una vez' : 'mensual'
@@ -33,9 +32,35 @@ class RegistraRFC extends Component {
       .catch(err => console.log(err));
   }
 
-  submitForm = (values) => {
-    console.log(values);
-    this.props.addRfc(values);
+  handleSubmit= e => {
+    const {target} = e;
+    const {name, value} = target;
+    this.setState({
+      [name]:value
+    })
+  }
+
+
+
+  submitForm = (e) => {
+    e.preventDefault();
+    console.log(this.state)
+    let rfc = this.state 
+    if(rfc.rfc ===''){
+      swal({
+        type:'error',
+        title:'Something went wrong',
+        text:'Write your RFC'
+      })
+    }else{
+      swal({
+        type: 'success',
+        title: 'RFC added',
+        text: 'Added: ' + rfc.rfc
+      })
+      this.props.addRfc(rfc);
+    }
+
   };
   
 
@@ -44,25 +69,28 @@ class RegistraRFC extends Component {
     // for (var i=0; i<elementos.length; i++)
 
     // const ProfileMenu = props => {
-    const { handleSubmit } = this.props;
+  //  ** const { handleSubmit } = this.props;
 
     return (
       <div className='body'>
         <Card className='card'>
-        <form title="Registra RFC" onSubmit={handleSubmit(this.submitForm)}>
+        <form title="Registra RFC" onSubmit={this.submitForm}>
           <div>
           <h1>Solicita tu factura</h1>
           </div>
           <div>
             <label>RFC</label>
             <div>
+           
               <Field 
               className='input'
                 type="text"
                 placeholder="*RFC"
                 name="rfc"
                 component='input'
+                onChange={this.handleSubmit}
               />
+
               <br/>
               <br/>
 
