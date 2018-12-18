@@ -2,51 +2,24 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-// import Button from '@clipmx/clip-ui/Button';
-import { Form } from 'antd';
 import Card from '@clipmx/card';
-import uuid from 'uuid'
-// import Registro from './Registro'
 import '../components/Registro.scss'
-
-import {addRfc, editRfc} from '../redux/Actions/actions'
+import {addRfc} from '../redux/Actions/actions'
 import swal from 'sweetalert2'
 
 
-const FormItem = Form.Item;
-
 class RegistraRFC extends Component {
-  state = {
-    rfc: '',
-    id: uuid (),
-  };
-
-  // const frecuencia = this.periodo.current.checked ? 'una vez' : 'mensual'
-
-  componentDidMount() {
-    axios
-      .post('http://localhost:3000/', this.state.info)
+ componentDidMount() {
+    /* axios
+      .post('http://localhost:4200/', this.state.info)
       .then(res => {
         console.log(res, this.props);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err)); */
   }
 
-  handleSubmit= e => {
-    const {target} = e;
-    const {name, value} = target;
-    this.setState({
-      [name]:value
-    })
-  }
-
-
-
-  submitForm = (e) => {
-    e.preventDefault();
-    console.log(this.state)
-    let rfc = this.state 
-    if(rfc.rfc ===''){
+  submitForm = values => {
+    if(values.rfc === ''){
       swal({
         type:'error',
         title:'Something went wrong',
@@ -56,25 +29,30 @@ class RegistraRFC extends Component {
       swal({
         type: 'success',
         title: 'RFC added',
-        text: 'Added: ' + rfc.rfc
+        text: 'Added: ' + values.rfc
       })
-      this.props.addRfc(rfc);
+      this.props.addRfc(values.rfc);
     }
 
-  };
-  
+    axios
+      .post('http://localhost:4200/', values)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+
+  }; 
+
 
   render() {
-    // var elementos = document.getElementsByName("frecuencia")
-    // for (var i=0; i<elementos.length; i++)
 
     // const ProfileMenu = props => {
-  //  ** const { handleSubmit } = this.props;
+    const { handleSubmit } = this.props;
 
     return (
       <div className='body'>
         <Card className='card'>
-        <form title="Registra RFC" onSubmit={this.submitForm}>
+        <form title="Registra RFC" onSubmit={handleSubmit(this.submitForm)}>
           <div>
           <h1>Solicita tu factura</h1>
           </div>
@@ -88,7 +66,6 @@ class RegistraRFC extends Component {
                 placeholder="*RFC"
                 name="rfc"
                 component='input'
-                onChange={this.handleSubmit}
               />
 
               <br/>
@@ -97,7 +74,7 @@ class RegistraRFC extends Component {
               <button className='btn' type="submit">Registrar</button>
 
 
-              {/* {this.state.info.RFC.length !== 0 ?}
+              {/* this.state.info.RFC.length !== 0 ?
               <div>
               <input
               value={this.state.info.rfc}
@@ -107,7 +84,7 @@ class RegistraRFC extends Component {
               <button>Editar</button> 
 
               </div> */}
-
+              
             </div>
             </div>
            

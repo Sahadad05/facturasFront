@@ -4,6 +4,8 @@ import rootReducer from './reducers/reducers'
 import {composeWithDevTools} from 'redux-devtools-extension'
 
 
+
+
 export default function configureStore(){
     return createStore(
         
@@ -11,5 +13,9 @@ export default function configureStore(){
         composeWithDevTools(
         applyMiddleware(thunk)
         ))
+
+        
     
 }
+
+
