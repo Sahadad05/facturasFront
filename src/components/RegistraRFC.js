@@ -18,6 +18,7 @@ class RegistraRFC extends Component {
       .catch(err => console.log(err)); */
   }
 
+
   submitForm = values => {
     if(values.rfc === ''){
       swal({
@@ -34,18 +35,24 @@ class RegistraRFC extends Component {
       this.props.addRfc(values.rfc);
     }
 
-    axios
-      .post('http://localhost:4200/', values)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => console.log(err));
+    this.props.recibirRFC(values.rfc)
 
-  }; 
+
+    
+
+    // axios
+    //   .post('http://localhost:4200/', values)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => console.log(err));
+
+  };
+  
 
 
   render() {
-
+    console.log(this.state)
     // const ProfileMenu = props => {
     const { handleSubmit } = this.props;
 
@@ -67,6 +74,7 @@ class RegistraRFC extends Component {
                 name="rfc"
                 component='input'
               />
+            
 
               <br/>
               <br/>

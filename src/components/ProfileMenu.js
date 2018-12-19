@@ -15,14 +15,40 @@ class ProfileMenu extends Component {
   
     this.props.addReq(values)
 
-   axios
-      .post('http://localhost:4200/', values)
+  //  axios
+  //     .post('http://localhost:4200/', values)
+  //     .then(res => {
+  //       console.log(res);
+  //     })
+  //     .catch(err => console.log(err));
+
+  }; 
+
+  mes = React.createRef()
+  tipo = React.createRef()
+  frecuencia = React.createRef()
+
+  recibirInfo = () => {
+    
+    const info = {
+      mes: this.mes.current.value,
+      tipo: this.tipo.current.value,
+      frecuencia: this.frecuencia.current.value
+    }
+    this.props.guardarInfo(info)
+  }
+
+  enviarInfo = (e) => {
+    e.preventDefault()
+    console.log(this.props.info)
+    axios
+      .post('http://localhost:4200/', this.props.info)
       .then(res => {
         console.log(res);
       })
       .catch(err => console.log(err));
 
-  }; 
+  }
 
   render() {
     // var elementos = document.getElementsByName("frecuencia")
@@ -38,20 +64,22 @@ class ProfileMenu extends Component {
         <Card className="card2">
           <form
             title="solicita tu factura" 
-            onSubmit={handleSubmit(this.submitForm)}
+            // onSubmit={handleSubmit(this.submitForm)}
+            onChange={this.recibirInfo}
+            onSubmit={this.enviarInfo}
           >
             <div>
               <Registro />
               <br />
               <br />
               <br />
-              <Field name="tipo" component="select">
+              <Field ref={this.tipo} name="tipo" component="select">
                 <option value="">Tipo</option>
                 <option value="Comisiones">Comisiones</option>
                 <option value="Transacciones">Transacciones</option>
               </Field>
 
-              <Field name="mes" component="select">
+              <Field ref={this.mes} name="mes" component="select">
                 <option value="">Mes</option>
                 <option value="Enero">Enero</option>
                 <option value="Febrero">Febrero</option>
@@ -76,6 +104,7 @@ class ProfileMenu extends Component {
                   component="input"
                   type="radio"
                   value="una vez"
+                  ref={this.frecuencia}
                 />
                 {''}
                 Una vez
@@ -86,6 +115,7 @@ class ProfileMenu extends Component {
                   component="input"
                   type="radio"
                   value="mensual"
+                  ref={this.frecuencia}
                 />
                 {''}
                 Mensual
